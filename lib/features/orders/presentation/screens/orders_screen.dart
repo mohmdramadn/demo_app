@@ -1,3 +1,4 @@
+import 'package:demo_app/core/routes/routes_names.dart';
 import 'package:demo_app/features/orders/presentation/bloc/orders_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,12 @@ class OrdersScreen extends StatelessWidget {
                       Text(state.noOfReturns.toString()),
                     ],
                   ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(
+                        context, Routes.statisticsRoute,
+                        arguments: state.orders),
+                    child: const Text('Show Diagram'),
+                  )
                 ],
               ),
             );
