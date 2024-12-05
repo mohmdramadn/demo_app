@@ -16,4 +16,4 @@ you can download it from [here](https://docs.flutter.dev/release/archive)
 ## Screens
 
 The application has two screens one for viewing the total count, average prices and number of returns of orders.
-The second screen has a diagram that shows the total number of orders in each day for 10 months period.
+And the other screen has a diagram that shows the total number of orders in each day for 10 months period.
