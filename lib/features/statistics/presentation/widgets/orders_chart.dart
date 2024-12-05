@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class OrdersChart extends StatefulWidget {
-  const OrdersChart({super.key, required this.dates});
+  const OrdersChart({super.key, required this.dates, required this.aspect});
 
   final List<ChartDates> dates;
+  final double aspect;
 
   @override
   State<OrdersChart> createState() => _OrdersChartState();
@@ -22,23 +23,19 @@ class _OrdersChartState extends State<OrdersChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.7,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 18,
-              left: 12,
-              top: 24,
-              bottom: 12,
-            ),
-            child: LineChart(
-              showAvg ? avgData() : mainData(),
-            ),
-          ),
+    return AspectRatio(
+      aspectRatio: widget.aspect,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          right: 18,
+          left: 12,
+          top: 24,
+          bottom: 12,
         ),
-      ],
+        child: LineChart(
+          showAvg ? avgData() : mainData(),
+        ),
+      ),
     );
   }
 
@@ -149,7 +146,7 @@ class _OrdersChartState extends State<OrdersChart> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: widget.dates.length.toDouble()-1,
+      maxX: widget.dates.length.toDouble() - 1,
       minY: 0,
       maxY: 5,
       lineBarsData: [

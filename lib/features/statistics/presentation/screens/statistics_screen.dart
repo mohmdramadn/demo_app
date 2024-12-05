@@ -19,11 +19,8 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft
-    ]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft]);
   }
 
   @override
@@ -34,9 +31,6 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.sizeOf(context).height;
-    var width = MediaQuery.sizeOf(context).width;
-
     return SafeArea(
       child: Scaffold(
         body: BlocProvider(
@@ -45,20 +39,33 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           child: Builder(builder: (context) {
             return BlocBuilder<StatisticsBloc, StatisticsState>(
               builder: (context, state) {
-                return SingleChildScrollView(
-                  child: SizedBox(
-                    height: height,
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        state.isLoading ?? false
-                            ? const CircularProgressIndicator()
-                            : OrdersChart(dates: state.chartDates),
-                      ],
-                    ),
-                  ),
-                );
+                return state.isLoading ?? false
+                    ? const Center(child: CircularProgressIndicator())
+                    : LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          // Use constraints.maxWidth to decide the aspect ratio
+                          double aspect;
+                          if (constraints.maxWidth > 800) {
+                            aspect = 2.2;
+                          } else if (constraints.maxWidth > 600) {
+                            aspect = 1.9;
+                          } else if (constraints.maxWidth > 300) {
+                            aspect = 1.4;
+                          } else {
+                            aspect = 1.0; // Default aspect
+                          }
+
+                          return SingleChildScrollView(
+                            child: Center(
+                              child: OrdersChart(
+                                dates: state.chartDates,
+                                aspect: aspect,
+                              ),
+                            ),
+                          );
+                        },
+                      );
               },
             );
           }),
