@@ -22,7 +22,7 @@ class OrdersScreen extends StatelessWidget {
           )..add(OrderRequested()),
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-              if (constraints.maxWidth > 600 && kIsWeb) {
+              if (constraints.maxWidth > 600) {
                 return const WebView();
               } else {
                 return const _MobileView();
@@ -40,82 +40,86 @@ class _MobileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Expanded(
       child: BlocBuilder<OrdersBloc, OrdersState>(
         builder: (context, state) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: !kIsWeb ? 50 : 0),
-              StatsCard(
-                value: state.totalCount.toString(),
-                title: Constants.totalOrders,
-              ),
-              const SizedBox(height: 30),
-              StatsCard(
-                value: state.averagePrice.toString(),
-                title: Constants.averagePrice,
-              ),
-              const SizedBox(height: 30),
-              StatsCard(
-                value: state.noOfReturns.toString(),
-                title: Constants.numberOfReturns,
-              ),
-              !kIsWeb ? const Spacer() : const SizedBox(height: 50),
-              Stack(
-                children: [
-                  Positioned(
-                    left: 15,
-                    bottom: 13,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
+          return SizedBox(
+            //height: MediaQuery.sizeOf(context).height - 100,
+            width: MediaQuery.sizeOf(context).width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: !kIsWeb ? 50 : 0),
+                StatsCard(
+                  value: state.totalCount.toString(),
+                  title: Constants.totalOrders,
+                ),
+                const SizedBox(height: 30),
+                StatsCard(
+                  value: state.averagePrice.toString(),
+                  title: Constants.averagePrice,
+                ),
+                const SizedBox(height: 30),
+                StatsCard(
+                  value: state.noOfReturns.toString(),
+                  title: Constants.numberOfReturns,
+                ),
+                !kIsWeb ? const Spacer() : Container(),
+                Stack(
+                  children: [
+                    Positioned(
+                      left: 15,
+                      bottom: 13,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: SizedBox(
+                          height: 60,
+                          width: 300,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const AppColors().secondaryColor,
+                              textStyle: const TextStyle(color: Colors.white),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
+                            onPressed: () => Navigator.pushNamed(
+                                context, Routes.statisticsRoute,
+                                arguments: state.orders),
+                            child: const Text(''),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
                         height: 60,
                         width: 300,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const AppColors().secondaryColor,
+                            backgroundColor: Colors.white.withOpacity(0.2),
                             textStyle: const TextStyle(color: Colors.white),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: Colors.white, width: 2)),
                           ),
                           onPressed: () => Navigator.pushNamed(
                               context, Routes.statisticsRoute,
                               arguments: state.orders),
-                          child: const Text(''),
+                          child: Text(Constants.showDiagram,
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      height: 60,
-                      width: 300,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white.withOpacity(0.2),
-                          textStyle: const TextStyle(color: Colors.white),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: const BorderSide(
-                                  color: Colors.white, width: 2)),
-                        ),
-                        onPressed: () => Navigator.pushNamed(
-                            context, Routes.statisticsRoute,
-                            arguments: state.orders),
-                        child: Text(Constants.showDiagram,
-                            style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           );
         },
       ),
