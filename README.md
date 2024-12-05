@@ -1,16 +1,19 @@
-# demo_app
+# Orders Demo App
 
-A new Flutter project.
+This a Demo application for how to view statistics on a group of orders. It is build for **Android**, **IOS** and **Web** using **Flutter!**
 
-## Getting Started
+## Run
+To run this Flutter application you need to have Flutter 3.24.1
+you can download it from [here](https://docs.flutter.dev/release/archive)
 
-This project is a starting point for a Flutter application.
+## Packages Used
 
-A few resources to get you started if this is your first Flutter project:
+* [equatable ](https://pub.dev/packages/equatable)
+* [flutter_bloc  ](https://pub.dev/packages/flutter_bloc)
+* [fl_chart](https://pub.dev/packages/fl_chart)
+* [intl](https://pub.dev/packages/intl)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screens
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The application has two screens one for viewing the total count, average prices and number of returns of orders.
+The second screen has a diagram that shows the total number of orders in each day for 10 months period.
