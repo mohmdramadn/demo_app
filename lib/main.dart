@@ -1,3 +1,4 @@
+import 'package:demo_app/core/styling/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,10 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demo App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: MaterialTheme().theme(MaterialTheme.darkScheme()),
       onGenerateRoute: onGenerateRoute,
     );
   }
